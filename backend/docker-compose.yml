@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mariadb_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: goal_app
+      MYSQL_USER: santosh
+      MYSQL_PASSWORD: mygoalapp123
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_container
+    environment:
+      PMA_HOST: mariadb # Use service name 'mariadb' as the host
+      PMA_PORT: 3306
+      PMA_USER: santosh
+      PMA_PASSWORD: mygoalapp123
+    ports:
+      - "8080:80" # Expose phpMyAdmin on localhost:8080
+    depends_on:
+      - mariadb
+
+volumes:
+  db_data:
