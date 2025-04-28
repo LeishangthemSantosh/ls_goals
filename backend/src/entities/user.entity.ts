@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  Relation,
 } from "typeorm";
+import { Goal } from "./goal.entity.js";
 
 export enum UserStatus {
   "ACTIVE" = "1",
@@ -27,6 +30,9 @@ export class User {
 
   @Column({ type: "enum", enum: UserStatus, default: UserStatus.ACTIVE })
   status!: UserStatus;
+
+  @OneToMany(() => Goal, (goal) => goal.user)
+  goals!: Relation<Goal[]>;
 
   @CreateDateColumn()
   createdAt!: Date;

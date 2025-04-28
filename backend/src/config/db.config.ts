@@ -3,6 +3,10 @@ import { DataSource } from "typeorm";
 import dotenv from "dotenv";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { User } from "../entities/user.entity.js";
+import { Goal } from "../entities/goal.entity.js";
+import { Progress } from "../entities/progress.entity.js";
+import { Milestone } from "../entities/milestone.entity.js";
 
 dotenv.config();
 
