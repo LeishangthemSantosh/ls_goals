@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsDateString, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateGoalDto {
   @IsString({ message: "Title must be of type string" })
@@ -13,7 +13,10 @@ export class CreateGoalDto {
   @IsNotEmpty({ message: "Category cannot be empty" })
   category!: string;
 
-  @IsDate({ message: "Target date must be of type date" })
+  @IsDateString(
+    { strict: true },
+    { message: "Target date must be of type date" }
+  )
   @IsNotEmpty({ message: "Target date cannot be empty" })
   targeted_date!: Date;
 }

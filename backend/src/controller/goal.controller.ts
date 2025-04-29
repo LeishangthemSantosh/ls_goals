@@ -6,7 +6,18 @@ export class GoalController {
   private readonly goalService = new GoalService();
 
   getGoals = async (req: Request, res: Response): Promise<void> => {
-    res.json(await this.goalService.getGoals());
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const orderBy = (req.query.orderBy as string) || "created_at";
+    const order =
+      (req.query.order as string)?.toUpperCase() === "DESC" ? "DESC" : "ASC";
+    const status = req.query.page as string;
+
+    const user = (req as Request & { user: any }).user;
+
+    res.json(
+      await this.goalService.getGoals(page, limit, orderBy, order, user, status)
+    );
   };
 
   createGoal = async (req: Request, res: Response): Promise<void> => {
