@@ -1,10 +1,9 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../config/db.config.js";
-import { LoginDto, RegisterDto } from "../dto/Auth.dto.js";
 import { hashedPassword, comparePassword } from "../utils/password.util.js";
 import { User, UserStatus } from "../entities/user.entity.js";
-import { ok } from "assert";
 import { generateToken } from "../utils/jwt.util.js";
+import { LoginDto, RegisterDto } from "../dto/auth.dto.js";
 
 export class AuthService {
   private userRepository: Repository<User>;
@@ -41,7 +40,11 @@ export class AuthService {
     }
 
     // Generate token
-    const token = generateToken({ name: user.name, email: user.email });
+    const token = generateToken({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
 
     return {
       status: 200,

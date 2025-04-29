@@ -13,7 +13,7 @@ import { User } from "./user.entity.js";
 import { Progress } from "./progress.entity.js";
 import { Milestone } from "./milestone.entity.js";
 
-enum GoalStatus {
+export enum GoalStatus {
   INITIATED = "INITIATED",
   COMPLETED = "COMPLETED",
   IN_PROGRESS = "IN_PROGRESS",
