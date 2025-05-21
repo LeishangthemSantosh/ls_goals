@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { CreateGoalDto } from "../dto/goal.dto.js";
+import { CreateGoalDto, UpdateGoalDto } from "../dto/goal.dto.js";
 import { Goal, GoalStatus } from "../entities/goal.entity.js";
 import { AppDataSource } from "../config/db.config.js";
 import { User } from "../entities/user.entity.js";
@@ -78,7 +78,22 @@ export class GoalService {
     return { status: 200, success: true, message: "Goal created successfuly" };
   }
 
-  async getGoalById() {}
+  async getGoalById(id: string) {
+    const goal = await this.goalRepository
+      .createQueryBuilder("goal")
+      .where("goal.id = :goalId", { goalId: id })
+      .getOne();
+    return {
+      status: 200,
+      success: true,
+      message: "Goal fetched successfully",
+      data: goal,
+    };
+  }
 
-  async updateGoal() {}
+  async updateGoal(goalDto: UpdateGoalDto, goalId: string): Promise<object> {
+    const { title, description, targeted_date, category, status } = goalDto;
+    await this.goalRepository.update({ id: goalId }, goalDto);
+    return { status: 200, success: true, message: "Goal created successfuly" };
+  }
 }

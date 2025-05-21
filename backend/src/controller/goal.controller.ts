@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { GoalService } from "../services/goal.service.js";
-import { CreateGoalDto } from "../dto/goal.dto.js";
+import { CreateGoalDto, UpdateGoalDto } from "../dto/goal.dto.js";
 
 export class GoalController {
   private readonly goalService = new GoalService();
@@ -26,7 +26,13 @@ export class GoalController {
     res.json(await this.goalService.createGoal(data, user));
   };
 
-  getGoalById = async (req: Request, res: Response): Promise<void> => {};
+  getGoalById = async (req: Request, res: Response): Promise<void> => {
+    res.send(await this.goalService.getGoalById(req.params.id));
+  };
 
-  updateGoal = async (req: Request, res: Response): Promise<void> => {};
+  updateGoal = async (req: Request, res: Response): Promise<void> => {
+    const data: UpdateGoalDto = req.body;
+    const goalId: string = req.params.id;
+    res.send(await this.goalService.updateGoal(data, goalId))
+  };
 }

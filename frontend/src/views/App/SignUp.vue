@@ -139,7 +139,6 @@ const rules = {
 };
 
 const onFinish = async (values) => {
-  console.log("Success:", values);
   const url = import.meta.env.VITE_API_BASE_URL + "auth/register";
   const response = await axios.post(url, {
     name: formState.name,

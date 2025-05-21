@@ -22,7 +22,7 @@ export class AuthService {
 
     if (!user) {
       return {
-        message: "Email not exists",
+        message: "Email does not exists",
         status: 404,
         success: true,
       };

@@ -6,6 +6,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
 import SignIn from "@/views/App/SignIn.vue";
 import SignUp from "@/views/App/SignUp.vue";
 import { useAuthStore } from "@/stores/auth.store";
+import GoalList from "@/views/Dashboard/goal/GoalList.vue";
 
 const routes = [
   {
@@ -17,6 +18,12 @@ const routes = [
         path: "/",
         name: "Home",
         component: Dashboard,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/goals",
+        name: "Goal",
+        component: GoalList,
         meta: { requiresAuth: true },
       },
     ],

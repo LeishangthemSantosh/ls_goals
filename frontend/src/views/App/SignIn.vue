@@ -109,12 +109,13 @@ const rules = {
 
 const onFinish = async (values) => {
   try {
-    await auth.login(formState.email, formState.password); // <-- Call login from store
+    await auth.login(formState.email, formState.password);
     message.success("Successfully logged in");
-    router.push("/"); // <-- Redirect after login
+    router.push("/");
   } catch (error) {
-    console.error(error);
-    message.error(error.response?.data?.message || "Login failed");
+    const errorMsg =
+      error?.response?.data?.message || error.message || "Login failed";
+    message.error(errorMsg);
   }
 };
 

@@ -65,6 +65,21 @@ export const useAuthStore = defineStore("auth", {
 
         // Restore Authorization header
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        // Attach interceptor only once
+        axios.interceptors.response.use(
+          (response) => response,
+          (error) => {
+            if (
+              error.response?.status === 401 ||
+              error.response?.status === 403
+            ) {
+              this.logout();
+              router.push("/sign-in");
+            }
+            return Promise.reject(error);
+          }
+        );
       }
     },
   },
