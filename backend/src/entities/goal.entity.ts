@@ -40,8 +40,8 @@ export class Goal {
   @Column({ type: "varchar", length: 255, nullable: false })
   category!: string;
 
-  @Column({ type: "date", nullable: true })
-  targeted_date!: Date;
+  @Column({ type: "varchar", length: 20, nullable: true })
+  targeted_date!: string;
 
   @Column({ type: "enum", enum: GoalStatus, default: GoalStatus.INITIATED })
   status!: GoalStatus;

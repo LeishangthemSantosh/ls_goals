@@ -1,4 +1,67 @@
 <template>
+  <div>
+    <a-button type="primary" @click="showModal">
+      Open Modal with customized footer
+    </a-button>
+
+    <a-modal v-model:open="open" title="Create Goal">
+      <div>
+        <a-form
+          v-if="open"
+          ref="formRef"
+          :model="formState"
+          name="basic"
+          :label-col="{ span: 24 }"
+          :wrapper-col="{ span: 24 }"
+          autocomplete="off"
+          @finish="onFinish"
+          @finishFailed="onFinishFailed"
+        >
+          <a-form-item label="Title" :colon="false" name="title">
+            <a-input
+              v-model:value="formState.title"
+              placeholder="Title"
+              size="medium"
+            />
+          </a-form-item>
+
+          <a-form-item label="Category" :colon="false" name="category">
+            <a-input
+              v-model:value="formState.category"
+              placeholder="Category"
+              size="medium"
+            />
+          </a-form-item>
+
+          <a-form-item label="Description" :colon="false" name="description">
+            <a-textarea
+              v-model:value="formState.description"
+              placeholder="Description"
+              size="medium"
+            />
+          </a-form-item>
+
+          <a-form-item label="Target Date" :colon="false" name="targeted_date">
+            <a-date-picker
+              v-model:value="formState.targeted_date"
+              placeholder="Target Date"
+              size="medium"
+              style="width: 100%"
+              value-format="YYYY-MM-DD"
+            />
+          </a-form-item>
+        </a-form>
+      </div>
+
+      <template #footer>
+        <a-button @click="open = false">Cancel</a-button>
+        <a-button type="primary" :loading="loading" @click="handleOk">
+          Submit
+        </a-button>
+      </template>
+    </a-modal>
+  </div>
+
   <a-list
     item-layout="vertical"
     size="large"
@@ -35,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from "vue";
+import { ref, inject, onMounted, reactive } from "vue";
 import axios from "axios";
 import {
   StarOutlined,
@@ -43,21 +106,22 @@ import {
   MessageOutlined,
 } from "@ant-design/icons-vue";
 
+// Breadcrumb
 const breadcrumbLabel = inject("breadcrumbLabel");
 onMounted(() => {
   breadcrumbLabel.value = "Goals";
   fetchData();
 });
 
+// List Data
 const listData = ref([]);
 
 async function fetchData() {
   try {
     const url = import.meta.env.VITE_API_BASE_URL + "goals";
     const response = await axios.get(url);
-    console.log(response.data);
-    // Replace below with actual response data as needed
-    for (let i = 0; i < 23; i++) {
+    // Dummy data for testing
+    for (let i = 0; i < 5; i++) {
       listData.value.push({
         href: "https://www.antdv.com/",
         title: `ant design vue part ${i}`,
@@ -94,4 +158,51 @@ const actions = [
     text: "2",
   },
 ];
+
+// Modal Form
+const open = ref(false);
+const loading = ref(false);
+const formRef = ref();
+
+const formState = reactive({
+  title: "",
+  category: "",
+  description: "",
+  targeted_date: null,
+});
+
+const showModal = () => {
+  open.value = true;
+};
+
+const handleOk = () => {
+  if (formRef.value) {
+    formRef.value.validate().then(onFinish).catch(onFinishFailed);
+  }
+};
+
+const onFinish = async (values) => {
+  loading.value = true;
+  const url = import.meta.env.VITE_API_BASE_URL + "goals";
+
+  const response = await axios.post(url, values);
+
+  if (response.data.success) {
+    loading.value = false;
+    open.value = false;
+  }
+};
+
+const onFinishFailed = (errorInfo) => {
+  console.log("❌ Failed:", errorInfo);
+};
 </script>
+
+<style>
+.ant-form-item-label {
+  padding-bottom: 0 !important;
+}
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+</style>
