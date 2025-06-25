@@ -37,6 +37,7 @@ export class GoalService {
         "goal.status AS goal_status",
         "user.id AS user_id",
         "user.name AS user_name",
+        "goal.description AS goal_description"
       ])
       .where("user.id = :userId", { userId: user.id });
 
