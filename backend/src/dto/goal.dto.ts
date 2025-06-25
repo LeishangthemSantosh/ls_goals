@@ -25,7 +25,7 @@ export class CreateGoalDto {
     { message: "Target date must be of type date" }
   )
   @IsNotEmpty({ message: "Target date cannot be empty" })
-  targeted_date!: Date;
+  targeted_date!: string;
 }
 
 export class UpdateGoalDto {
@@ -46,7 +46,7 @@ export class UpdateGoalDto {
     { message: "Target date must be of type date" }
   )
   @IsNotEmpty({ message: "Target date cannot be empty" })
-  targeted_date!: Date;
+  targeted_date!: string;
 
   @IsEnum(GoalStatus, { message: "Invalid status" })
   status!: GoalStatus;
