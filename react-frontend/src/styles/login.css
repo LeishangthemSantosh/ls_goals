@@ -1,0 +1,50 @@
+.sign-in {
+  padding: 0px 20px;
+}
+
+.sign-in .col-img img {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .sign-in .col-img img {
+    margin: 0;
+  }
+}
+
+.sign-in .col-form .ant-switch {
+  margin-right: 5px;
+}
+
+.sign-in .ant-form-item-label {
+  line-height: 28px;
+}
+
+.sign-in .ant-form-item label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.text-muted {
+  color: #8c8c8c !important;
+}
+
+.font-regular {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400 !important;
+}
+
+h1 {
+  font-weight: 600;
+  color: #141414;
+  font-size: 48px;
+  font-family: "Poppins", sans-serif;
+}
+
+h5 {
+  font-size: 20px;
+}

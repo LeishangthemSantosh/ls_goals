@@ -1,0 +1,56 @@
+.sign-up-header {
+  height: 400px;
+  margin: 20px;
+  padding: 20px; /* reduced bottom padding */
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sign-up-header .content {
+  max-width: 500px;
+  margin: 0 auto;
+  color: white;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: -300px;
+  padding: 0 16px;
+}
+
+.card-signup {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+}
+
+.text-muted {
+  color: #8c8c8c !important;
+}
+.font-regular {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400 !important;
+}
+h1 {
+  font-weight: 600;
+  color: #fff;
+  font-size: 48px;
+  font-family: "Poppins", sans-serif;
+}
+h5 {
+  font-size: 20px;
+  color: #eee;
+}
