@@ -37,7 +37,7 @@ export class GoalService {
         "goal.status AS goal_status",
         "user.id AS user_id",
         "user.name AS user_name",
-        "goal.description AS goal_description"
+        "goal.description AS goal_description",
       ])
       .where("user.id = :userId", { userId: user.id });
 
@@ -93,8 +93,20 @@ export class GoalService {
   }
 
   async updateGoal(goalDto: UpdateGoalDto, goalId: string): Promise<object> {
-    const { title, description, targeted_date, category, status } = goalDto;
-    await this.goalRepository.update({ id: goalId }, goalDto);
-    return { status: 200, success: true, message: "Goal created successfuly" };
+    const goal = await this.goalRepository.findOne({ where: { id: goalId } });
+
+    if (!goal) {
+      return { status: 404, success: false, message: "Goal not found" };
+    }
+
+    const updatedGoal = this.goalRepository.merge(goal, goalDto);
+    await this.goalRepository.save(updatedGoal);
+
+    return {
+      status: 200,
+      success: true,
+      message: "Goal updated successfully",
+      data: updatedGoal,
+    };
   }
 }

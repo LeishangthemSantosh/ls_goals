@@ -1,4 +1,4 @@
-import { Row, Col, Form, Input, Button, message } from "antd";
+import { Row, Col, Form, Input, Button, message, Flex } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/authSlice";
@@ -23,7 +23,12 @@ const Login = () => {
 
   return (
     <div className="sign-in">
-      <Row gutter={[24, 24]} justify="space-around" align="middle">
+      <Row
+        gutter={[24, 24]}
+        justify="space-around"
+        align="middle"
+        style={{ height: "100vh" }}
+      >
         <Col
           xs={24}
           md={12}
